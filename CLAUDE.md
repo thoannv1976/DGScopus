@@ -1,4 +1,6 @@
-# [TEN-APP-O-DAY] — Claude operating manual
+# Project: DGScopus
+  
+  App đánh giá bài báo Scopus pre-submission cho UAE18.
 
 > File này là tham chiếu mặc định cho mọi phiên Claude làm việc trên repo. Đọc
 > hết trước khi viết dòng code đầu tiên. Nếu nội dung mâu thuẫn với prompt
