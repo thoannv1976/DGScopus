@@ -1,6 +1,6 @@
 # Firebase App Hosting runtime config cho DGScopus
-# Project Firebase: [TEN-PROJECT-FIREBASE]  Region: asia-southeast1
-# Backend ID:       [ten-backend]
+# Project Firebase: dgscopus  Region: asia-southeast1
+# Backend ID:       dgscopus
 #
 # Quy tắc UAE18:
 #   - Mọi credential dùng `secret:` (Google Secret Manager).
@@ -24,19 +24,19 @@ env:
     availability: [BUILD, RUNTIME]
 
   - variable: FIREBASE_PROJECT_ID
-    value: '[TEN-PROJECT-FIREBASE]'
+    value: 'dgscopus'
     availability: [BUILD, RUNTIME]
 
   - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
-    value: '[TEN-PROJECT-FIREBASE]'
+    value: 'dgscopus'
     availability: [BUILD, RUNTIME]
 
   - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
-    value: '[TEN-PROJECT-FIREBASE].firebaseapp.com'
+    value: 'dgscopus.firebaseapp.com'
     availability: [BUILD, RUNTIME]
 
   - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
-    value: '[TEN-PROJECT-FIREBASE].appspot.com'
+    value: 'dgscopus.appspot.com'
     availability: [BUILD, RUNTIME]
 
   - variable: NEXT_PUBLIC_APP_NAME
