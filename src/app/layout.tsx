@@ -8,7 +8,7 @@ import UserBadge from '@/components/UserBadge';
 
 export const metadata: Metadata = {
   title: APP_NAME,
-  description: '[Mô tả app]',
+  description: 'AI peer review pre-submission cho bài báo Scopus — UAE18',
 };
 
 export default async function RootLayout({

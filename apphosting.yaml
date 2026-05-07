@@ -1,4 +1,4 @@
-# Firebase App Hosting runtime config cho [TEN-APP-O-DAY]
+# Firebase App Hosting runtime config cho DGScopus
 # Project Firebase: [TEN-PROJECT-FIREBASE]  Region: asia-southeast1
 # Backend ID:       [ten-backend]
 #
@@ -40,7 +40,7 @@ env:
     availability: [BUILD, RUNTIME]
 
   - variable: NEXT_PUBLIC_APP_NAME
-    value: '[TEN-APP-O-DAY]'
+    value: 'DGScopus'
     availability: [BUILD, RUNTIME]
 
   # ---------- secrets ----------

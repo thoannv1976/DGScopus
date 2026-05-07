@@ -4,7 +4,7 @@
 // =============================================================================
 
 export const APP_NAME =
-  process.env.NEXT_PUBLIC_APP_NAME || '[TEN-APP-O-DAY]';
+  process.env.NEXT_PUBLIC_APP_NAME || 'DGScopus';
 
 // ----- Claude / Anthropic -----
 export const CLAUDE_MODEL =
@@ -58,4 +58,43 @@ export const SESSION_COOKIE_MAX_AGE_MS =
 // luôn giữ nguyên để cross-app queries dễ.
 export const COL = {
   usageLogs: 'usage_logs',
+  papers: 'papers',
+  evaluations: 'evaluations',
 } as const;
+
+// ----- DGScopus domain enums -----
+export const TARGET_TIERS = ['Q1', 'Q2', 'Q3', 'Q4'] as const;
+export type TargetTier = (typeof TARGET_TIERS)[number];
+
+export const FIELDS = [
+  'Engineering',
+  'Social Science',
+  'Medicine',
+  'Other',
+] as const;
+export type Field = (typeof FIELDS)[number];
+
+export const REVIEW_MODES = ['quick', 'detailed'] as const;
+export type ReviewMode = (typeof REVIEW_MODES)[number];
+
+// Detailed mode tốn ~6-9 calls Claude → tính 3 quota; quick = 1 quota.
+export const QUOTA_COST: Record<ReviewMode, number> = {
+  quick: 1,
+  detailed: 3,
+};
+
+// Paper section labels (Anh sẽ extract bằng heading regex; nếu không khớp,
+// fallback whole-text vào IMRAD bucket).
+export const SECTION_KEYS = [
+  'abstract',
+  'introduction',
+  'methods',
+  'results',
+  'discussion',
+  'conclusion',
+  'references',
+] as const;
+export type SectionKey = (typeof SECTION_KEYS)[number];
+
+// p-limit concurrency cho parallel section calls (theo CLAUDE.md mục 7).
+export const CLAUDE_PARALLELISM = 3;
