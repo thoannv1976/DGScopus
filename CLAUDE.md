@@ -309,20 +309,30 @@ sub-folder có README riêng liệt kê pattern đáng đọc + gotcha cụ th�
 > **EDIT MÌNH SECTION NÀY khi tạo app mới từ template.** Mọi giá trị
 > trong dấu `[...]` cần thay bằng giá trị thật.
 
-- **Tên app**: `[TEN-APP-O-DAY]`
-- **Mục đích**: `[mô tả 1-2 câu app này làm gì cho user]`
+- **Tên app**: `DGScopus`
+- **Mục đích**: AI peer review pre-submission cho bài báo Scopus — chấm 7 tiêu
+  chí chuẩn quốc tế (Originality, RQ/Hypothesis, Methodology, Results,
+  Literature, Writing, Journal Fit), điều chỉnh strictness theo Q-tier, kèm
+  cover letter draft + related papers BibTeX + acceptance probability ước
+  lượng.
 - **Firebase project ID**: `[project-id]` (region `asia-southeast1`)
-- **Tên backend App Hosting**: `[ten-backend]` (thường = tên app, snake-case)
-- **GitHub repo**: `https://github.com/[org]/[ten-repo]`
-- **Production URL**: `https://[ten-app]--[project-id].asia-southeast1.hosted.app/`
+- **Tên backend App Hosting**: `dgscopus`
+- **GitHub repo**: `https://github.com/thoannv1976/dgscopus`
+- **Production URL**: `https://dgscopus--[project-id].asia-southeast1.hosted.app/`
 - **Domain custom (nếu có)**: `[domain]`
-- **Reference app gần nhất**: `[DGDCHP2 / AIMEET / CBTS / AI-OBE2]` —
-  copy pattern từ đó trước.
-- **Firestore collections**: `[textbooks, chunks, evaluations, ...]`
-- **Storage paths**: `uploads/{ownerId}/...`
-- **Rate limit override** (nếu khác default 5/giờ + 30/ngày):
-  - `RATE_LIMIT_PER_HOUR=[N]`
-  - `RATE_LIMIT_PER_DAY=[N]`
-- **Claude model**: `claude-sonnet-4-6` (đổi nếu app có yêu cầu khác)
-- **Long-running**: `[Có / Không]` — nếu có, mô tả chiến lược chunking.
-- **External integrations**: `[Web Speech API / Vector DB / ...]`
+- **Reference app gần nhất**: `DGDCHP2` (parse DOCX/PDF + rubric → Claude →
+  scores) + `AIMEET` (chunking input dài: section-level summary parallel rồi
+  aggregate, p-limit 3).
+- **Firestore collections**: `papers`, `evaluations`, `usage_logs`
+- **Storage paths**: chưa dùng Firebase Storage — paper text lưu trực tiếp
+  Firestore (Scopus paper trung bình 30-50 trang ~ 80-150KB plain text, dưới
+  1MB doc cap).
+- **Rate limit override**: giữ default 5/giờ + 30/ngày. Detailed mode tốn
+  ~6-9 calls Claude → tương đương ~3 quota/lần (`QUOTA_COST` trong constants).
+- **Claude model**: `claude-sonnet-4-6` (đủ cho rubric scoring; nếu cần
+  reasoning sâu hơn cho Q1 strict, cân nhắc Opus override qua env).
+- **Long-running**: Có. Detailed mode = 2-step pipeline: parallel section
+  summaries (p-limit 3) → aggregate single call → 3 extras (cover letter,
+  related papers, acceptance) parallel. Tổng ~90s, < 540s cap.
+- **External integrations**: chưa có (không vector DB, không web fetch). Chỉ
+  Anthropic API + Firebase.

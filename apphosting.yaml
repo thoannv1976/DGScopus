@@ -1,6 +1,6 @@
-# Firebase App Hosting runtime config cho [TEN-APP-O-DAY]
-# Project Firebase: [TEN-PROJECT-FIREBASE]  Region: asia-southeast1
-# Backend ID:       [ten-backend]
+# Firebase App Hosting runtime config cho DGScopus
+# Project Firebase: dgscopus  Region: asia-southeast1
+# Backend ID:       dgscopus
 #
 # Quy tắc UAE18:
 #   - Mọi credential dùng `secret:` (Google Secret Manager).
@@ -24,23 +24,23 @@ env:
     availability: [BUILD, RUNTIME]
 
   - variable: FIREBASE_PROJECT_ID
-    value: '[TEN-PROJECT-FIREBASE]'
+    value: 'dgscopus'
     availability: [BUILD, RUNTIME]
 
   - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
-    value: '[TEN-PROJECT-FIREBASE]'
+    value: 'dgscopus'
     availability: [BUILD, RUNTIME]
 
   - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
-    value: '[TEN-PROJECT-FIREBASE].firebaseapp.com'
+    value: 'dgscopus.firebaseapp.com'
     availability: [BUILD, RUNTIME]
 
   - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
-    value: '[TEN-PROJECT-FIREBASE].appspot.com'
+    value: 'dgscopus.appspot.com'
     availability: [BUILD, RUNTIME]
 
   - variable: NEXT_PUBLIC_APP_NAME
-    value: '[TEN-APP-O-DAY]'
+    value: 'DGScopus'
     availability: [BUILD, RUNTIME]
 
   # ---------- secrets ----------
@@ -51,9 +51,13 @@ env:
     secret: ANTHROPIC_API_KEY
     availability: [RUNTIME]
 
-  - variable: FIREBASE_SERVICE_ACCOUNT_JSON
-    secret: FIREBASE_SERVICE_ACCOUNT_JSON
-    availability: [RUNTIME]
+  # Service account credentials KHÔNG đặt qua env trong production:
+  #   - App Hosting / Cloud Run chạy với service account default của project,
+  #     applicationDefault() trong src/lib/firebase-admin.ts sẽ tự pick up.
+  #   - Mọi env var bắt đầu bằng FIREBASE_ đều bị App Hosting cấm
+  #     (reserved prefix), nên không thể wire FIREBASE_SERVICE_ACCOUNT_JSON.
+  # Local dev vẫn dùng được FIREBASE_SERVICE_ACCOUNT_JSON trong .env.local
+  # (tên env var ở local không bị App Hosting validate).
 
   - variable: NEXT_PUBLIC_FIREBASE_API_KEY
     secret: NEXT_PUBLIC_FIREBASE_API_KEY
